@@ -26,6 +26,8 @@ function Movie({ addToSavedList }) {
     history.push(`/update-movie/${id}`)
   }
 
+  //todo: handleDelete
+
   useEffect(() => {
     fetchMovie(match.params.id);
   }, [match.params.id]);

@@ -3,30 +3,43 @@ import { useParams } from "react-router-dom"
 import axios from "axios";
 
 const initialMovie = {
-    id: null,
+    id: "",
     title: "",
     director: "",
-    metascore: null,
+    metascore: "",
     stars: ""
 }
 
-const MovieForm = () => {
-    const [editMovie, setEditMovie] = useState(initialMovie);
+const MovieForm = props => {
+    const [movieList, setMovieList] = useState(initialMovie);
     const { id } = useParams();
+    // const id = 1;
+
+    useEffect(() => {
+        const movieToUpdate = props.movies.find(movie => `${movie.id}` === id);
+
+        if (movieToUpdate) {
+            setMovieList(movieToUpdate);
+        }
+    }, [props.movies, id])
 
     const handleSubmit = e => {
         e.preventDefault();
         axios
-            .put(`http:localhost:5000/api/movies/${id}`, editMovie)
-            .then(res => console.log(res))
+            .put(`http://localhost:5000/api/movies/${id}`, movieList)
+            .then(res => {
+                console.log("put", res);
+                setMovieList(res.data);
+                props.history.push(`/`)
+            })
             .catch(err => console.log(err))
     }
 
     const handleChange = e => {
         // e.preventDefault();
         e.persist();
-        setEditMovie({
-            ...editMovie,
+        setMovieList({
+            ...movieList,
             [e.target.name]: e.target.value
         })
     }
@@ -34,13 +47,22 @@ const MovieForm = () => {
 
     return (
         <form className="edit-form" onSubmit={handleSubmit}>
+            <h2>Edit Movie</h2>
+            {/* <label htmlFor="id">ID:</label>
+            <input
+                id="id"
+                className="id-input"
+                type="number"
+                name="id"
+                value={movieList.id}
+                onChange={handleChange} /> */}
             <label htmlFor="title">Title:</label>
             <input
                 id="title"
                 className="title-input"
                 type="text"
                 name="title"
-                value={editMovie.title}
+                value={movieList.title}
                 onChange={handleChange} />
 
             <label htmlFor="director">Director:</label>
@@ -49,14 +71,14 @@ const MovieForm = () => {
                 className="director-input"
                 type="text"
                 name="director"
-                value={editMovie.director}
+                value={movieList.director}
                 onChange={handleChange} />
             <label htmlFor="stars">Actors / Actresses:</label>
             <input
                 className="stars-input"
                 type="text"
                 name="stars"
-                value={editMovie.stars}
+                value={movieList.stars}
                 onChange={handleChange} />
             <button>Update</button>
         </form>
