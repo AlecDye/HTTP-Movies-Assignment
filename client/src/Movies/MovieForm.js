@@ -33,23 +33,29 @@ const MovieForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="edit-form" onSubmit={handleSubmit}>
+            <label htmlFor="title">Title:</label>
             <input
+                id="title"
                 className="title-input"
                 type="text"
                 name="title"
                 value={editMovie.title}
                 onChange={handleChange} />
+
+            <label htmlFor="director">Director:</label>
             <input
+                id="director"
                 className="director-input"
                 type="text"
-                name="title"
+                name="director"
                 value={editMovie.director}
                 onChange={handleChange} />
+            <label htmlFor="stars">Actors / Actresses:</label>
             <input
                 className="stars-input"
                 type="text"
-                name="title"
+                name="stars"
                 value={editMovie.stars}
                 onChange={handleChange} />
             <button>Update</button>
