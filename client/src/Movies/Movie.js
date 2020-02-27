@@ -27,6 +27,16 @@ function Movie({ addToSavedList }) {
   }
 
   //todo: handleDelete
+  const handleDelete = e => {
+    e.preventDefault();
+    axios
+      .delete(`http://localhost:5000/api/movies/${movie.id}`)
+      .then(res => {
+        setMovie(res.data);
+        history.push('/movies')
+      })
+      .catch(err => console.log(err));
+  }
 
   useEffect(() => {
     fetchMovie(match.params.id);
@@ -45,6 +55,9 @@ function Movie({ addToSavedList }) {
       </div>
       <div className='edit-button' onClick={editMovie}>
         Edit
+      </div>
+      <div className='edit-button' onClick={handleDelete}>
+        Delete
       </div>
     </div>
   );

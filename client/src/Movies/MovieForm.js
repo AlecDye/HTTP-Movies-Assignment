@@ -13,7 +13,6 @@ const initialMovie = {
 const MovieForm = props => {
     const [movieList, setMovieList] = useState(initialMovie);
     const { id } = useParams();
-    // const id = 1;
 
     useEffect(() => {
         const movieToUpdate = props.movies.find(movie => `${movie.id}` === id);
@@ -21,16 +20,15 @@ const MovieForm = props => {
         if (movieToUpdate) {
             setMovieList(movieToUpdate);
         }
-    }, [props.movies, id])
+    }, [props.movie, id])
 
     const handleSubmit = e => {
         e.preventDefault();
         axios
             .put(`http://localhost:5000/api/movies/${id}`, movieList)
             .then(res => {
-                console.log("put", res);
-                setMovieList(res.data);
-                props.history.push(`/`)
+                props.setMovieList(res.data);
+                props.history.push(`/movies/${id}`);
             })
             .catch(err => console.log(err))
     }
@@ -48,14 +46,14 @@ const MovieForm = props => {
     return (
         <form className="edit-form" onSubmit={handleSubmit}>
             <h2>Edit Movie</h2>
-            {/* <label htmlFor="id">ID:</label>
+            <label htmlFor="id">ID:</label>
             <input
                 id="id"
                 className="id-input"
                 type="number"
                 name="id"
                 value={movieList.id}
-                onChange={handleChange} /> */}
+                onChange={handleChange} />
             <label htmlFor="title">Title:</label>
             <input
                 id="title"
@@ -72,6 +70,14 @@ const MovieForm = props => {
                 type="text"
                 name="director"
                 value={movieList.director}
+                onChange={handleChange} />
+            <label htmlFor="metascore">Metascore:</label>
+            <input
+                id="metascore"
+                className="metascore-input"
+                type="number"
+                name="metascore"
+                value={movieList.metascore}
                 onChange={handleChange} />
             <label htmlFor="stars">Actors / Actresses:</label>
             <input
