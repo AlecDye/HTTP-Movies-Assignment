@@ -23,7 +23,7 @@ function Movie({ addToSavedList }) {
 
   const editMovie = e => {
     e.preventDefault();
-    history.push(`/update-movie/${id}`)
+    history.push(`/update-movie/${movie.id}`)
   }
 
   //todo: handleDelete
