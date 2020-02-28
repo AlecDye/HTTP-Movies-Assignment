@@ -45,7 +45,7 @@ const UpdateMovie = props => {
                     }
                 });
                 props.setMovie(updatedMovies);
-                history.push('/movies');
+                history.push('/');
             })
     }
 
