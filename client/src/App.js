@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
+
+import MovieForm from "./Movies/MovieForm";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
