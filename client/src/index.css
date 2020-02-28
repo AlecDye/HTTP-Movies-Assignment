@@ -75,3 +75,14 @@ body {
   color: red;
   text-align: center;
 }
+
+.edit-form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  margin: 0.2rem 0;
+}
